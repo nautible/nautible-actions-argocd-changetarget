@@ -33,3 +33,7 @@ with:
   srcRevision: 'develop'
   destRevision: 'HEAD'
 ```
+
+## 参考
+
+[GithubActionsの作成手順](https://docs.github.com/ja/actions/creating-actions/creating-a-javascript-action)
