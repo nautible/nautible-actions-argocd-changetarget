@@ -1,0 +1,23 @@
+name: Release Preparation
+
+on:
+  push:
+    create
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SRC_BRANCH: ${{ github.head_ref }}
+      DEST_BRANCH: ${{ github.base_ref }}
+    steps:
+    - name: log
+      run: echo '${{ toJSON(github) }}'
+    - name: Checkout repo
+      uses: actions/checkout@v2
+    - name: Checkout manifest repo
+      uses: ./
+      with:
+        name: 'application.yaml'
+        srcRevision: ${{ env.SRC_BRANCH }}
+        destRevision: ${{ env.DEST_BRANCH }}
