@@ -16136,7 +16136,7 @@ const github = __nccwpck_require__(174);
 const glob = __nccwpck_require__(4130);
 const fs = __nccwpck_require__(7147);
 const jsYaml = __nccwpck_require__(5981);
-const { execSync } = __nccwpck_require__(2081)
+const { spawn } = __nccwpck_require__(2081)
 
 try {
   // revision
@@ -16177,7 +16177,16 @@ function write(fileName, data, srcRevision, destRevision) {
 }
 
 function gitCommand() {
-  execSync('git config --global push.default current && git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com && git add . && git commit -m \'update targetRevision\' && git push')
+  const app = spawn('bash', [path.join(__dirname, './gitCommand.sh')]);
+  app.on('close', code => {
+    if(code !== 0){
+      err = new Error(`Invalid status code: ${code}`);
+      err.code = code;
+      return reject(err);
+    };
+    return resolve(code);
+  });
+  app.on('error', reject);
 }
 })();
 

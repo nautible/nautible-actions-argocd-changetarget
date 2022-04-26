@@ -3,7 +3,7 @@ const github = require('@actions/github');
 const glob = require('glob');
 const fs = require('fs');
 const jsYaml = require('js-yaml');
-const { execSync } = require('child_process')
+const { spawn } = require('child_process')
 
 try {
   // revision
@@ -44,5 +44,14 @@ function write(fileName, data, srcRevision, destRevision) {
 }
 
 function gitCommand() {
-  execSync('git config --global push.default current && git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com && git add . && git commit -m \'update targetRevision\' && git push')
+  const app = spawn('bash', [path.join(__dirname, './gitCommand.sh')]);
+  app.on('close', code => {
+    if(code !== 0){
+      err = new Error(`Invalid status code: ${code}`);
+      err.code = code;
+      return reject(err);
+    };
+    return resolve(code);
+  });
+  app.on('error', reject);
 }
