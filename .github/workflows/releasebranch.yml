@@ -3,7 +3,7 @@ name: Release Preparation
 on:
   push:
     branches:    
-      - 'feature/*'
+      - 'release/*'
 jobs:
   build:
     runs-on: ubuntu-latest
