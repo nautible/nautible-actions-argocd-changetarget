@@ -3,7 +3,8 @@ const github = require('@actions/github');
 const glob = require('glob');
 const fs = require('fs');
 const jsYaml = require('js-yaml');
-const { execSync } = require('child_process')
+const { spawnSync } = require('child_process')
+const path = require("path");
 
 try {
   // revision
@@ -22,33 +23,28 @@ try {
         write(file, data, srcRevision, destRevision);
       }
     });
-  });
-  
-  gitCommand()
-
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
+    gitCommand()
+    const time = (new Date()).toTimeString();
+    core.setOutput("time", time);
+    });
 } catch (error) {
   core.setFailed(error.message);
 }
 
+// ファイル出力処理
 function write(fileName, data, srcRevision, destRevision) {
   const currentRevision = data['spec']['source']['targetRevision']
   if (currentRevision == srcRevision) {
     data['spec']['source']['targetRevision'] = destRevision
     const text = jsYaml.dump(data);
-    fs.writeFile(fileName, text, 'utf-8', (err) => {
-        if (err) throw err;
-    });    
+    fs.writeFileSync(fileName, text, 'utf-8')
   }
 }
 
+// Gitへのcommit & push
 function gitCommand() {
-  execSync('git config --global push.default current')
-  execSync('git config user.name github-actions[bot]')
-  execSync('git config user.email github-actions[bot]@users.noreply.github.com')
-  execSync('git add .')
-  const ret = execSync('git commit -m "update targetRevision"')
-  console.log(ret.toString())
-  execSync('git push')
+  const app = spawnSync('bash', [path.join(__dirname, './gitCommand.sh')]);
+  if (app.error != undefined && app.error != null) {
+    throw app.error
+  }
 }
