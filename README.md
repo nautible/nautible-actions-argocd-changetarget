@@ -14,7 +14,7 @@ ArgoCDのApplicationリソースに含まれるtargetRevisionを書き換えま�
 
 **Required** 変更元リビジョン デフォルトは `"develop"`
 
-## `name`
+## `destRevision`
 
 **Required** 変更先リビジョン デフォルトは `"HEAD"`
 
