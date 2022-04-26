@@ -8,15 +8,15 @@ ArgoCDのApplicationリソースに含まれるtargetRevisionを書き換えま�
 
 ## `name`
 
-**Required** ファイル名 デフォルトは `"application.yaml"`
+**Required** ファイル名（デフォルトは `"application.yaml"`）
 
 ## `srcRevision`
 
-**Required** 変更元リビジョン デフォルトは `"develop"`
+**Required** 変更元リビジョン（デフォルトは `"develop"`）
 
 ## `destRevision`
 
-**Required** 変更先リビジョン デフォルトは `"HEAD"`
+**Required** 変更先リビジョン（デフォルトは `"HEAD"`）
 
 ## Outputs
 
@@ -26,8 +26,10 @@ ArgoCDのApplicationリソースに含まれるtargetRevisionを書き換えま�
 
 ## 使用例
 
+```yaml
 uses: actions/nautible-actions-argocd-changetarget@v1.0
 with:
   name: 'application.yaml'
   srcRevision: 'develop'
   destRevision: 'HEAD'
+```

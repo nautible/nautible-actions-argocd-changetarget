@@ -7,13 +7,9 @@ const { spawnSync } = require('child_process')
 const path = require("path");
 
 try {
-  // revision
   const fileName = core.getInput('name');
   const srcRevision = core.getInput('srcRevision');
   const destRevision = core.getInput('destRevision');
-//   const fileName = 'application.yaml';
-//   const srcRevision = 'develop';
-//   const destRevision = 'HEAD';
 
   glob('**/'+fileName, (err, files) => {
     files.forEach(file => {

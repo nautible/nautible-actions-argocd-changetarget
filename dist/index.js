@@ -16140,13 +16140,9 @@ const { spawnSync } = __nccwpck_require__(2081)
 const path = __nccwpck_require__(1017);
 
 try {
-  // revision
   const fileName = core.getInput('name');
   const srcRevision = core.getInput('srcRevision');
   const destRevision = core.getInput('destRevision');
-//   const fileName = 'application.yaml';
-//   const srcRevision = 'develop';
-//   const destRevision = 'HEAD';
 
   glob('**/'+fileName, (err, files) => {
     files.forEach(file => {
