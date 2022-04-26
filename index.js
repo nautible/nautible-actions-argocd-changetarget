@@ -8,8 +8,8 @@ const path = require("path");
 
 try {
   const fileName = core.getInput('name');
-  const srcRevision = core.getInput('srcRevision').replace('refs/heads', '');
-  const destRevision = core.getInput('destRevision').replace('refs/heads', '');
+  const srcRevision = core.getInput('srcRevision').replace('refs/heads/', '');
+  const destRevision = core.getInput('destRevision').replace('refs/heads/', '');
 
   glob('**/'+fileName, (err, files) => {
     files.forEach(file => {
