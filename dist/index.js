@@ -16144,9 +16144,6 @@ try {
   const fileName = core.getInput('name');
   const srcRevision = core.getInput('srcRevision');
   const destRevision = core.getInput('destRevision');
-  console.log(fileName);
-  console.log(srcRevision);
-  console.log(destRevision);
 //   const fileName = 'application.yaml';
 //   const srcRevision = 'develop';
 //   const destRevision = 'HEAD';
@@ -16156,7 +16153,6 @@ try {
       const yamlData = fs.readFileSync(file, 'utf-8');
       const data = jsYaml.load(yamlData);
       if (data['kind'] == 'Application') {
-        console.log("write");
         write(file, data, srcRevision, destRevision);
       }
     });
@@ -16168,23 +16164,22 @@ try {
   core.setFailed(error.message);
 }
 
+// ファイル出力処理
 function write(fileName, data, srcRevision, destRevision) {
   const currentRevision = data['spec']['source']['targetRevision']
   if (currentRevision == srcRevision) {
     data['spec']['source']['targetRevision'] = destRevision
     const text = jsYaml.dump(data);
-    fs.writeFile(fileName, text, 'utf-8', (err) => {
-        if (err) throw err;
-    });    
+    fs.writeFileSync(fileName, text, 'utf-8')
   }
 }
 
+// Gitへのcommit & push
 function gitCommand() {
   const app = spawnSync('bash', [path.join(__dirname, './gitCommand.sh')]);
   if (app.error != undefined && app.error != null) {
     throw app.error
   }
-  console.log("commit")
 }
 })();
 
