@@ -45,14 +45,8 @@ function write(fileName, data, srcRevision, destRevision) {
 }
 
 function gitCommand() {
-  const app = spawn('bash', [path.join(__dirname, './gitCommand.sh')]);
-  app.on('close', code => {
-    if(code !== 0){
-      err = new Error(`Invalid status code: ${code}`);
-      err.code = code;
-      return reject(err);
-    };
-    return resolve(code);
-  });
-  app.on('error', reject);
+  const app = spawnSync('bash', [path.join(__dirname, './gitCommand.sh')]);
+  if (app.error != undefined && app.error != null) {
+    throw app.error
+  }
 }
