@@ -3,7 +3,7 @@ const github = require('@actions/github');
 const glob = require('glob');
 const fs = require('fs');
 const jsYaml = require('js-yaml');
-const { spawn } = require('child_process')
+const { spawnSync } = require('child_process')
 const path = require("path");
 
 try {
