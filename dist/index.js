@@ -16137,6 +16137,7 @@ const glob = __nccwpck_require__(4130);
 const fs = __nccwpck_require__(7147);
 const jsYaml = __nccwpck_require__(5981);
 const { spawn } = __nccwpck_require__(2081)
+const path = __nccwpck_require__(1017);
 
 try {
   // revision
