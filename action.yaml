@@ -8,7 +8,7 @@ inputs:
   srcRevision:
     description: 'src Revision Name'
     required: true
-    default: 'default'
+    default: 'develop'
   destRevision:
     description: 'dest Revision Name'
     required: true
