@@ -11,15 +11,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SRC_BRANCH: ${{ github.head_ref }}
+      DEST_BRANCH: ${{ github.base_ref }}
     if: github.event.pull_request.merged == true
     steps:
-    - name: log
-      run: echo '${{ toJSON(github) }}'
     - name: Checkout repo
       uses: actions/checkout@v2
     - name: Checkout manifest repo
       uses: ./
       with:
         name: 'application.yaml'
-        srcRevision: 'develop'
-        destRevision: 'HEAD'
+        srcRevision: ${{ env.SRC_BRANCH }}
+        destRevision: ${{ env.DEST_BRANCH }}
