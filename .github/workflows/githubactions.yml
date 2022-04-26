@@ -15,7 +15,6 @@ jobs:
     steps:
     - name: log
       run: echo '${{ toJSON(github) }}'
-      uses: actions/checkout@v2
     - name: Checkout repo
       uses: actions/checkout@v2
     - name: Checkout manifest repo
