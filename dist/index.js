@@ -16151,7 +16151,7 @@ try {
 //   const srcRevision = 'develop';
 //   const destRevision = 'HEAD';
 
-  glob('**/'+fileName, (err, files) => {
+  glob.sync('**/'+fileName, (err, files) => {
     files.forEach(file => {
       const yamlData = fs.readFileSync(file, 'utf-8');
       const data = jsYaml.load(yamlData);
