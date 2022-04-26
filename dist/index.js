@@ -16177,12 +16177,7 @@ function write(fileName, data, srcRevision, destRevision) {
 }
 
 function gitCommand() {
-  execSync('git config --global push.default current')
-  execSync('git config user.name github-actions[bot]')
-  execSync('git config user.email github-actions[bot]@users.noreply.github.com')
-  execSync('git add .')
-  execSync('git commit -m "update targetRevision"')
-  execSync('git push')
+  execSync('git config --global push.default current && git config user.name github-actions[bot] && git config user.email github-actions[bot]@users.noreply.github.com && git add . && git commit -m "update targetRevision" && git push')
 }
 })();
 
