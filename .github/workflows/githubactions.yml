@@ -1,0 +1,24 @@
+name: Release Preparation
+
+on:
+  pull_request:
+    branches:
+      - *
+    types: [closed]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+    - name: log
+      run: echo '${{ toJSON(github) }}'
+      uses: actions/checkout@v2
+    - name: Checkout repo
+      uses: actions/checkout@v2
+    - name: Checkout manifest repo
+      uses: ./
+      with:
+        name: 'application.yaml'
+        srcRevision: 'develop'
+        destRevision: 'HEAD'
