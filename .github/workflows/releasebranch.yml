@@ -10,8 +10,6 @@ jobs:
     env:
       DEST_BRANCH: ${{ github.ref }}
     steps:
-    - name: log
-      run: echo '${{ toJSON(github) }}'
     - name: Checkout repo
       uses: actions/checkout@v2
     - name: Checkout manifest repo

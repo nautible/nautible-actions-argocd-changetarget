@@ -34,6 +34,22 @@ with:
   destRevision: 'HEAD'
 ```
 
+## examples
+
+### application.yaml
+
+targetRevisionの書き換えを確認するためのサンプルファイル
+
+### pullrequest.yml
+
+プルリクエストをマージした際に実行するGithubActionsのサンプルファイル。  
+targetRevisionの書き換えには書き換え元にマージ前のブランチ、書き換え先にマージ後のブランチを指定。
+
+### releasebranch.yml
+
+リリースブランチを新規作成した際に実行するGithubActionsのサンプルファイル。  
+targetRevisionの書き換えには書き換え元にdevelopを固定で指定し、書き換え先に新規作成ブランチを指定。
+
 ## 参考
 
 [GithubActionsの作成手順](https://docs.github.com/ja/actions/creating-actions/creating-a-javascript-action)
