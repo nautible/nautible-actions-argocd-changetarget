@@ -1,12 +1,20 @@
-name: Release Preparation
+name: Sample GithubActions
 
 on:
-  push:
-    branches: [ release/* ]
+  pull_request:
+    branches:
+      - main
+      - develop
+      - release/*
+    types: [closed]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SRC_BRANCH: ${{ github.head_ref }}
+      DEST_BRANCH: ${{ github.base_ref }}
+    if: github.event.pull_request.merged == true
     steps:
     - name: Checkout repo
       uses: actions/checkout@v2
@@ -14,5 +22,5 @@ jobs:
       uses: ./
       with:
         name: 'application.yaml'
-        srcRevision: 'develop'
-        destRevision: 'HEAD'
+        srcRevision: ${{ env.SRC_BRANCH }}
+        destRevision: ${{ env.DEST_BRANCH }}
