@@ -16141,8 +16141,8 @@ const path = __nccwpck_require__(1017);
 
 try {
   const fileName = core.getInput('name');
-  const srcRevision = core.getInput('srcRevision');
-  const destRevision = core.getInput('destRevision');
+  const srcRevision = core.getInput('srcRevision').replace('refs/heads', '');
+  const destRevision = core.getInput('destRevision').replace('refs/heads', '');
 
   glob('**/'+fileName, (err, files) => {
     files.forEach(file => {

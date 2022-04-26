@@ -11,7 +11,7 @@ spec:
   source:
     path: kong-apigateway/manifests
     repoURL: https://github.com/nautible/nautible-plugin
-    targetRevision: refs/heads/feature/test3
+    targetRevision: develop
   syncPolicy:
     automated:
       prune: true
