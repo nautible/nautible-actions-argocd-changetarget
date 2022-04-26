@@ -1,8 +1,7 @@
 name: Release Preparation
 
 on:
-  push:
-    create
+  create
 
 jobs:
   build:
