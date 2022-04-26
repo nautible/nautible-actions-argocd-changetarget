@@ -48,6 +48,7 @@ function gitCommand() {
   execSync('git config user.name github-actions[bot]')
   execSync('git config user.email github-actions[bot]@users.noreply.github.com')
   execSync('git add .')
-  execSync('git commit -m "update targetRevision"')
+  const ret = execSync('git commit -m "update targetRevision"')
+  console.log(ret.toString())
   execSync('git push')
 }
