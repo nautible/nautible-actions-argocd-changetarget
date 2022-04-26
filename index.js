@@ -11,6 +11,9 @@ try {
   const fileName = core.getInput('name');
   const srcRevision = core.getInput('srcRevision');
   const destRevision = core.getInput('destRevision');
+  console.log(fileName);
+  console.log(srcRevision);
+  console.log(destRevision);
 //   const fileName = 'application.yaml';
 //   const srcRevision = 'develop';
 //   const destRevision = 'HEAD';
@@ -20,6 +23,7 @@ try {
       const yamlData = fs.readFileSync(file, 'utf-8');
       const data = jsYaml.load(yamlData);
       if (data['kind'] == 'Application') {
+        console.log("write");
         write(file, data, srcRevision, destRevision);
       }
     });
@@ -49,4 +53,5 @@ function gitCommand() {
   if (app.error != undefined && app.error != null) {
     throw app.error
   }
+  console.log("commit")
 }
