@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      OWNER: $ {{ github.repository_owner }}
+      OWNER: ${{ github.repository_owner }}
       DEST_BRANCH: ${{ github.ref }}
     steps:
     - name: log

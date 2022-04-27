@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      OWNER: $ {{ github.repository_owner }}
+      OWNER: ${{ github.repository_owner }}
       DEST_BRANCH: ${{ github.base_ref }}
     if: github.event.pull_request.merged == true
     steps:
