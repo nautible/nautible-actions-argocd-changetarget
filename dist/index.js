@@ -16142,18 +16142,12 @@ const path = __nccwpck_require__(1017);
 try {
   const fileName = core.getInput('name');
   const owner = core.getInput('owner');
-  let srcRevision = core.getInput('srcRevision');
+  let srcRevision = core.getInput('srcRevision').replace('refs/heads/', '');
   const destRevision = core.getInput('destRevision').replace('refs/heads/', '');
 
   console.log("owner : " + owner);
   console.log("srcRevision : " + srcRevision);
   console.log("destRevision : " + destRevision);
-
-  if (srcRevision != null) {
-    // optionalなので、設定されている場合のみrefs/heads/があれば削除
-    srcRevision = srcRevision.replace('refs/heads/', '');
-  }
-  console.log("srcRevision : " + srcRevision);
 
   glob('**/'+fileName, (err, files) => {
     files.forEach(file => {
@@ -16179,7 +16173,7 @@ function write(fileName, data, owner, srcRevision, destRevision) {
   // GithubOwnerチェック
   if (owner == repoURL.split('/')[3]) {
     // 変更元リビジョンが指定されている場合は、現状のtargetRevisionが一致している場合しか書き換えない
-    if (srcRevision != null && srcRevision != targetRevision) {
+    if (srcRevision != '' && srcRevision != targetRevision) {
       return;
     }
     if (destRevision == 'main') {
