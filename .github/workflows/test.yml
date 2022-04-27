@@ -19,6 +19,6 @@ jobs:
       uses: ./
       with:
         name: 'application.yaml'
-        repository: ${{ env.OWNER }}
+        owner: ${{ env.OWNER }}
         srcRevision: 'feature/init'
         destRevision: ${{ env.DEST_BRANCH }}
