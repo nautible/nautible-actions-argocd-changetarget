@@ -26,12 +26,49 @@ ArgoCDのApplicationリソースに含まれるtargetRevisionを書き換えま�
 
 ## 使用例
 
+### リビジョンを固定で指定する例
+
 ```yaml
 uses: actions/nautible-actions-argocd-changetarget@v1.0
 with:
   name: 'application.yaml'
   srcRevision: 'develop'
   destRevision: 'HEAD'
+```
+
+### マージ時にマージ元マージ先を自動で設定する例
+
+targetRevisionがマージ元ブランチ名になっているものをすべてマージ先ブランチ名に書き換えるケース。
+
+```yaml
+env:
+  SRC_BRANCH: ${{ github.head_ref }}
+  DEST_BRANCH: ${{ github.base_ref }}
+...
+steps:
+  - name: Change targetRevision
+    uses: actions/nautible-actions-argocd-changetarget@v1.0
+    with:
+      name: 'application.yaml'
+      srcRevision: ${{ env.SRC_BRANCH }}
+      destRevision: ${{ env.DEST_BRANCH }}
+```
+
+### Push先ブランチ名を自動で設定する例
+
+releaseブランチなど、新規作成ブランチをPushした際にブランチ名を書き換えるケース。
+
+```yaml
+env:
+  DEST_BRANCH: ${{ github.ref }}
+...
+steps:
+  - name: Change targetRevision
+    uses: actions/nautible-actions-argocd-changetarget@v1.0
+    with:
+        name: 'application.yaml'
+        srcRevision: 'develop'
+        destRevision: ${{ env.DEST_BRANCH }}
 ```
 
 ## examples
