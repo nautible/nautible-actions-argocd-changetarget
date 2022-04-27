@@ -16143,18 +16143,18 @@ try {
   const fileName = core.getInput('name');
   const owner = core.getInput('owner');
   let srcRevision = core.getInput('srcRevision');
-  const destRevision = core.getInput('srcRevision').replace('refs/heads/', '');
+  const destRevision = core.getInput('destRevision').replace('refs/heads/', '');
 
   console.log("owner : " + owner);
-  console.log("srcRevision : " + destRevision);
-  console.log("destRevision : " + srcRevision);
+  console.log("srcRevision : " + srcRevision);
+  console.log("destRevision : " + destRevision);
 
   if (srcRevision != null) {
     // optionalなので、設定されている場合のみrefs/heads/があれば削除
     srcRevision = srcRevision.replace('refs/heads/', '');
   }
-  console.log("srcRevision : " + destRevision);
-  
+  console.log("srcRevision : " + srcRevision);
+
   glob('**/'+fileName, (err, files) => {
     files.forEach(file => {
       const yamlData = fs.readFileSync(file, 'utf-8');
