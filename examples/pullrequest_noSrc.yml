@@ -23,4 +23,4 @@ jobs:
       with:
         name: 'application.yaml'
         owner: ${{ env.OWNER }}
-        DestRevision: ${{ env.DEST_BRANCH }}
+        destRevision: ${{ env.DEST_BRANCH }}
