@@ -20,5 +20,5 @@ jobs:
       with:
         name: 'application.yaml'
         owner: ${{ env.OWNER }}
-        srcRevision: 'feature/init'
+        srcRevision: 'develop'
         destRevision: ${{ env.DEST_BRANCH }}
