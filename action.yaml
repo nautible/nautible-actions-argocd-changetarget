@@ -1,0 +1,23 @@
+name: 'ChangeTargetRevision'
+description: 'ArgoCD Change targetRevision Actions'
+inputs:
+  name:
+    description: 'File Name'
+    required: true
+    default: 'application.yaml'
+  owner:
+    description: 'Repository Owner'
+    required: true
+  srcRevision:
+    description: 'Src Revision Name'
+    required: false
+  destRevision:
+    description: 'Dest Revision Name'
+    required: true
+    default: 'HEAD'
+outputs:
+  time:
+    description: 'end time'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
