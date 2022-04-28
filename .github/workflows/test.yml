@@ -19,6 +19,6 @@ jobs:
       uses: ./
       with:
         name: 'application.yaml'
-#        owner: ${{ env.OWNER }}
+        owner: ${{ env.OWNER }}
         srcRevision: 'develop'
         destRevision: ${{ env.DEST_BRANCH }}
