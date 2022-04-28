@@ -12,15 +12,15 @@ ArgoCDのApplicationリソースに含まれるtargetRevisionを書き換えま�
 
 ## `owner`
 
-**Required** 変更対象リポジトリのオーナー（デフォルトは空文字）
+**Required** 変更対象リポジトリのオーナー（未指定時はActionsがエラー終了する）
 
 ## `srcRevision`
 
-**Optional** 変更元リビジョン
+**Optional** 変更元リビジョン（未指定時は変更元リビジョンをチェックせずすべて変更対象とする）
 
 ## `destRevision`
 
-**Required** 変更先リビジョン（デフォルトは `"HEAD"`）
+**Required** 変更先リビジョン（未指定時は自動で`"HEAD"`を指定して動作する）
 
 ## Outputs
 
@@ -115,10 +115,10 @@ targetRevisionの書き換えを確認するためのサンプルファイル。
 プルリクエストをマージした際に実行するGithubActionsのサンプルファイル。  
 targetRevisionの書き換えには、書き換え元にマージ前のブランチ、書き換え先にマージ後のブランチが指定されるようにGithubActionsの変数を設定している例。
 
-### pullrequest_no_src.yml
+### pullrequest_no_revision.yml
 
 プルリクエストをマージした際に実行するGithubActionsのサンプルファイル。  
-targetRevisionの書き換えには、書き換え元にマージ前のブランチ、書き換え先にマージ後のブランチが指定されるようにGithubActionsの変数を設定している例。
+targetRevisionを指定しないため、書き換え元は任意、書き換え先はHEADとなる例。
 
 ### releasebranch.yml
 
