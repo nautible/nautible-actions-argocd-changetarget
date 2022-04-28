@@ -1,18 +1,22 @@
 name: Release Preparation
 
 on:
-  push:
-    branches:    
-      - 'release/*'
+  pull_request:
+    branches:
+      - main
+      - develop
+      - release/*
+    types: [closed]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       OWNER: ${{ github.repository_owner }}
-      DEST_BRANCH: ${{ github.ref }}
+      SRC_BRANCH: ${{ github.head_ref }}
+      DEST_BRANCH: ${{ github.base_ref }}
+    if: github.event.pull_request.merged == true
     steps:
-    - name: log
-      run: echo '${{ toJSON(github) }}'
     - name: Checkout repo
       uses: actions/checkout@v2
     - name: Change targetRevision
@@ -20,5 +24,5 @@ jobs:
       with:
         name: 'application.yaml'
         owner: ${{ env.OWNER }}
-        srcRevision: 'develop'
-        destRevision: ${{ env.DEST_BRANCH }}
+#        srcRevision: ${{ env.SRC_BRANCH }}
+#        destRevision: ${{ env.DEST_BRANCH }}

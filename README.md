@@ -10,9 +10,13 @@ ArgoCDのApplicationリソースに含まれるtargetRevisionを書き換えま�
 
 **Required** ファイル名（デフォルトは `"application.yaml"`）
 
+## `owner`
+
+**Required** 変更対象リポジトリのオーナー（デフォルトは空文字）
+
 ## `srcRevision`
 
-**Required** 変更元リビジョン（デフォルトは `"develop"`）
+**Optional** 変更元リビジョン
 
 ## `destRevision`
 
@@ -32,6 +36,7 @@ ArgoCDのApplicationリソースに含まれるtargetRevisionを書き換えま�
 uses: actions/nautible-actions-argocd-changetarget@v1.0
 with:
   name: 'application.yaml'
+  owner: 'nautible'
   srcRevision: 'develop'
   destRevision: 'HEAD'
 ```
@@ -42,6 +47,7 @@ targetRevisionがマージ元ブランチ名になっているものをすべて
 
 ```yaml
 env:
+  OWNER: ${{ github.repository_owner }}
   SRC_BRANCH: ${{ github.head_ref }}
   DEST_BRANCH: ${{ github.base_ref }}
 ...
@@ -50,9 +56,12 @@ steps:
     uses: actions/nautible-actions-argocd-changetarget@v1.0
     with:
       name: 'application.yaml'
+      owner: ${{ env.OWNER }}
       srcRevision: ${{ env.SRC_BRANCH }}
       destRevision: ${{ env.DEST_BRANCH }}
 ```
+
+targetRevision: "マージ元ブランチ" の場合のみ targetRevision: "マージ先ブランチ" に変更する。
 
 ### Push先ブランチ名を自動で設定する例
 
@@ -60,16 +69,40 @@ releaseブランチなど、新規作成ブランチをPushした際にブラン
 
 ```yaml
 env:
+  OWNER: ${{ github.repository_owner }}
   DEST_BRANCH: ${{ github.ref }}
 ...
 steps:
   - name: Change targetRevision
     uses: actions/nautible-actions-argocd-changetarget@v1.0
     with:
-        name: 'application.yaml'
-        srcRevision: 'develop'
-        destRevision: ${{ env.DEST_BRANCH }}
+      name: 'application.yaml'
+      owner: ${{ env.OWNER }}
+      srcRevision: 'develop'
+      destRevision: ${{ env.DEST_BRANCH }}
 ```
+
+targetRevision: develop の場合のみ targetRevision: "Push先ブランチ" に変更する。
+
+### 変更元リビジョンを指定しない例
+
+変更元リビジョンを指定しない場合、変更元ブランチ上のApplicationリソースでtargetRevisionに何を指定されていても書き換え対象とする。
+
+```yaml
+env:
+  OWNER: ${{ github.repository_owner }}
+  DEST_BRANCH: ${{ github.ref }}
+...
+steps:
+  - name: Change targetRevision
+    uses: actions/nautible-actions-argocd-changetarget@v1.0
+    with:
+      name: 'application.yaml'
+      owner: ${{ env.OWNER }}
+      destRevision: ${{ env.DEST_BRANCH }}
+```
+
+targetRevisionの値に関わらず targetRevision: "Push先ブランチ" に変更する。
 
 ## examples
 
@@ -78,6 +111,11 @@ steps:
 targetRevisionの書き換えを確認するためのサンプルファイル。
 
 ### pullrequest.yml
+
+プルリクエストをマージした際に実行するGithubActionsのサンプルファイル。  
+targetRevisionの書き換えには、書き換え元にマージ前のブランチ、書き換え先にマージ後のブランチが指定されるようにGithubActionsの変数を設定している例。
+
+### pullrequest_no_src.yml
 
 プルリクエストをマージした際に実行するGithubActionsのサンプルファイル。  
 targetRevisionの書き換えには、書き換え元にマージ前のブランチ、書き換え先にマージ後のブランチが指定されるようにGithubActionsの変数を設定している例。

@@ -12,6 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      OWNER: ${{ github.repository_owner }}
       SRC_BRANCH: ${{ github.head_ref }}
       DEST_BRANCH: ${{ github.base_ref }}
     if: github.event.pull_request.merged == true
@@ -22,5 +23,6 @@ jobs:
       uses: ./
       with:
         name: 'application.yaml'
+        owner: ${{ env.OWNER }}
         srcRevision: ${{ env.SRC_BRANCH }}
         destRevision: ${{ env.DEST_BRANCH }}
