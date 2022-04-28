@@ -25,4 +25,4 @@ jobs:
         name: 'application.yaml'
         owner: ${{ env.OWNER }}
 #        srcRevision: ${{ env.SRC_BRANCH }}
-        destRevision: ${{ env.DEST_BRANCH }}
+#        destRevision: ${{ env.DEST_BRANCH }}

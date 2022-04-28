@@ -16145,10 +16145,9 @@ try {
   let srcRevision = core.getInput('srcRevision').replace('refs/heads/', '');
   const destRevision = core.getInput('destRevision').replace('refs/heads/', '');
 
-  console.log("owner : " + owner);
-  console.log("srcRevision : " + srcRevision);
-  console.log("destRevision : " + destRevision);
-
+  if (owner == '') {
+    throw new Error('owner is required');
+  }
   glob('**/'+fileName, (err, files) => {
     files.forEach(file => {
       const yamlData = fs.readFileSync(file, 'utf-8');
