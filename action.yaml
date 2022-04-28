@@ -5,12 +5,14 @@ inputs:
     description: 'File Name'
     required: true
     default: 'application.yaml'
-  srcRevision:
-    description: 'src Revision Name'
+  owner:
+    description: 'Repository Owner'
     required: true
-    default: 'develop'
+  srcRevision:
+    description: 'Src Revision Name'
+    required: false
   destRevision:
-    description: 'dest Revision Name'
+    description: 'Dest Revision Name'
     required: true
     default: 'HEAD'
 outputs:
