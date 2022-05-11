@@ -28,12 +28,16 @@ ArgoCDのApplicationリソースに含まれるtargetRevisionを書き換えま�
 
 処理完了時間
 
+## 制約事項
+
+１つのYAMLファイルにつき、１つのリソース定義のみとする（１ファイル内に「---」区切りで複数リソース定義がされている場合エラーとなる）
+
 ## 使用例
 
 ### リビジョンを固定で指定する例
 
 ```yaml
-uses: actions/nautible-actions-argocd-changetarget@v1.0
+uses: nautible/nautible-actions-argocd-changetarget@2022.1.0
 with:
   name: 'application.yaml'
   owner: 'nautible'
